@@ -1,0 +1,22 @@
+{% extends "homepage/base.html" %}
+{% block title %}Request a Delivery | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:500px;">
+        <h2>Request a delivery</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="field-error">{{ field.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit request</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "homepage/base.html" %}
+{% block title %}{{ shipment.tracking_number }} | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:600px;">
+        <a href="{% url 'customer_dashboard' %}" style="color:var(--muted); font-size:0.85rem;">← Back to my shipments</a>
+        <h2 style="margin-top:16px;">{{ shipment.tracking_number }}</h2>
+
+        <div class="stub" style="margin-top: 24px;">
+            <div class="stub-row"><span>Origin</span><span>{{ shipment.origin.city }}</span></div>
+            <div class="stub-row"><span>Destination</span><span>{{ shipment.destination.city }}</span></div>
+            <div class="stub-row"><span>Weight</span><span>{{ shipment.weight_kg }} kg</span></div>
+            <span class="stub-status"><span class="pulse"></span>{{ shipment.get_status_display }}</span>
+        </div>
+
+        <h3 style="margin-top:32px;">History</h3>
+        <ul style="list-style:none; padding:0;">
+            {% for entry in shipment.status_history.all %}
+                <li style="padding:10px 0; border-bottom:1px solid var(--steel); color:var(--muted); font-family:var(--font-mono); font-size:0.85rem;">
+                    {{ entry.changed_at|date:"M d, Y H:i" }} — {{ entry.get_status_display }}
+                    {% if entry.note %} ({{ entry.note }}){% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

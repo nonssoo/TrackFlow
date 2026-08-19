@@ -1,0 +1,20 @@
+{% extends "homepage/base.html" %}
+{% block title %}Review Request | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:500px;">
+        <h2>Review delivery request</h2>
+        <div class="stub" style="margin: 24px 0;">
+            <div class="stub-row"><span>Customer</span><span>{{ delivery_request.customer }}</span></div>
+            <div class="stub-row"><span>Pickup</span><span>{{ delivery_request.pickup_address.city }}</span></div>
+            <div class="stub-row"><span>Destination</span><span>{{ delivery_request.destination_address.city }}</span></div>
+            <div class="stub-row"><span>Package</span><span>{{ delivery_request.package_description }}</span></div>
+            <div class="stub-row"><span>Weight</span><span>{{ delivery_request.weight_kg }} kg</span></div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Approve & create shipment</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

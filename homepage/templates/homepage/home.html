@@ -1,0 +1,117 @@
+{% extends "homepage/base.html" %}
+
+{% block title %}TrackFlow — Every Shipment, Accounted For{% endblock %}
+
+{% block content %}
+
+<section class="hero" id="track">
+    <div class="wrap">
+        <div>
+            <div class="eyebrow">Real-time cargo visibility</div>
+            <h1>Every shipment,<br><span class="accent">accounted for.</span></h1>
+            <p class="lead">
+                Enter a tracking number and see exactly where your package is —
+                pickup, transit, and delivery, logged the moment it happens.
+            </p>
+
+            <form class="waybill" method="get" action="{% url 'track_shipment' %}">
+                    <input type="text" name="tracking_number" placeholder="Enter tracking number, e.g. TF-8823-KX90" aria-label="Tracking number">
+                <button type="submit" class="btn btn-primary">Track</button>
+            </form>
+            <div class="hero-note">No account needed to track a shipment.</div>
+        </div>
+
+        <div class="stub">
+            <div class="stub-row"><span>Tracking No.</span><span>TF-8823-KX90</span></div>
+            <div class="stub-row"><span>Origin</span><span>Lagos, NG</span></div>
+            <div class="stub-row"><span>Destination</span><span>Accra, GH</span></div>
+            <div class="stub-row"><span>Weight</span><span>4.20 kg</span></div>
+            <span class="stub-status"><span class="pulse"></span>In Transit</span>
+        </div>
+    </div>
+</section>
+
+<div class="manifest" aria-hidden="true">
+    <div class="manifest-track">
+        {% for i in "12" %}
+        <div class="manifest-item"><span class="code">TF-4471-QW12</span> Lagos → Abuja <span class="tag tag-transit">In Transit</span></div>
+        <div class="manifest-item"><span class="code">TF-2290-RT88</span> Accra → Kumasi <span class="tag tag-delivered">Delivered</span></div>
+        <div class="manifest-item"><span class="code">TF-9981-ZP03</span> Ibadan → Lagos <span class="tag tag-pickup">Picked Up</span></div>
+        <div class="manifest-item"><span class="code">TF-1145-VN77</span> Kano → Lagos <span class="tag tag-transit">In Transit</span></div>
+        <div class="manifest-item"><span class="code">TF-6620-BB41</span> Lagos → Port Harcourt <span class="tag tag-delivered">Delivered</span></div>
+        {% endfor %}
+    </div>
+</div>
+
+<section class="section" id="network">
+    <div class="wrap">
+        <div class="section-head">
+            <div class="eyebrow">Why TrackFlow</div>
+            <h2>Built for shipments that can't go missing.</h2>
+            <p>Every handoff is logged. Every status change is timestamped. No guessing where a package is.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <span class="mark">LIVE</span>
+                <h3>Real-time status</h3>
+                <p>Status updates the moment a driver marks a shipment picked up, in transit, or delivered — no manual refresh needed.</p>
+            </div>
+            <div class="feature">
+                <span class="mark">LOG</span>
+                <h3>Full chain of custody</h3>
+                <p>Every shipment keeps a complete history of who handled it and when, so disputes get resolved with evidence, not guesswork.</p>
+            </div>
+            <div class="feature">
+                <span class="mark">NET</span>
+                <h3>Dispatch built in</h3>
+                <p>Drivers, warehouses, and routes are managed from one dashboard, so dispatch decisions happen in seconds, not phone calls.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="how-it-works">
+    <div class="wrap">
+        <div class="section-head">
+            <div class="eyebrow">Process</div>
+            <h2>From booking to doorstep.</h2>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <span class="num">01</span>
+                <h3>Book the shipment</h3>
+                <p>Enter pickup and destination details. TrackFlow assigns a tracking number instantly.</p>
+            </div>
+            <div class="step">
+                <span class="num">02</span>
+                <h3>Driver picks up</h3>
+                <p>A driver is assigned and confirms pickup. The shipment status updates automatically.</p>
+            </div>
+            <div class="step">
+                <span class="num">03</span>
+                <h3>In transit</h3>
+                <p>The package moves through the network. Every stage is logged to the shipment's history.</p>
+            </div>
+            <div class="step">
+                <span class="num">04</span>
+                <h3>Delivered</h3>
+                <p>Recipient receives the package. The final status is recorded, and the record stays searchable.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="wrap">
+        <h2>Ready to ship with visibility?</h2>
+        <p>Set up your first shipment in under a minute.</p>
+        <div class="cta-actions">
+            <a href="#" class="btn btn-primary">Create a shipment</a>
+            <a href="#track" class="btn btn-ghost">Track a package</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

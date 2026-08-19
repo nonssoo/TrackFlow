@@ -1,0 +1,18 @@
+{% extends "homepage/base.html" %}
+{% block title %}Reject Request | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:500px;">
+        <h2>Reject this delivery request?</h2>
+        <div class="stub" style="margin: 24px 0;">
+            <div class="stub-row"><span>Customer</span><span>{{ delivery_request.customer }}</span></div>
+            <div class="stub-row"><span>Pickup</span><span>{{ delivery_request.pickup_address.city }}</span></div>
+            <div class="stub-row"><span>Destination</span><span>{{ delivery_request.destination_address.city }}</span></div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-ghost">Yes, reject it</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

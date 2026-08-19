@@ -1,0 +1,67 @@
+{% extends "homepage/base.html" %}
+{% block title %}My Shipments | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap">
+        <h2>My shipments</h2>
+        <a href="{% url 'create_delivery_request' %}" class="btn btn-primary">Request a delivery</a>
+
+        {% if shipments %}
+            <table style="width:100%; border-collapse: collapse; margin-top: 24px;">
+                <thead>
+                    <tr style="text-align:left; border-bottom:1px solid var(--steel); color:var(--muted); font-size:0.85rem;">
+                        <th style="padding:10px 0;">Tracking No.</th>
+                        <th>Route</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody style="font-family: var(--font-mono); font-size: 0.9rem;">
+                    {% for shipment in shipments %}
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                        <td style="padding:12px 0;">
+                            <a href="{% url 'shipment_detail' shipment.pk %}" style="color:var(--orange);">
+                                {{ shipment.tracking_number }}
+                            </a>
+                        </td>
+                        <td>{{ shipment.origin.city }} → {{ shipment.destination.city }}</td>
+                        <td>{{ shipment.get_status_display }}</td>
+                        <td>{{ shipment.created_at|date:"M d, Y" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="color:var(--muted);">You don't have any shipments yet.</p>
+        {% endif %}
+
+       <h2 style="margin-top:48px;">Pending requests</h2>
+{% if pending_requests %}
+<table style="width:100%; border-collapse: collapse; margin-top: 16px;">
+<thead>
+<tr style="text-align:left; border-bottom:1px solid var(--steel); color:var(--muted); font-size:0.85rem;">
+<th style="padding:10px 0;">Route</th>
+<th>Package</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody style="font-size: 0.9rem;">
+    {% for req in pending_requests %}
+<tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+<td style="padding:12px 0;">{{ req.pickup_address.city }} → {{ req.destination_address.city }}</td>
+<td>{{ req.package_description }}</td>
+<td>{{ req.get_status_display }}</td>
+<td>
+    <a href="{% url 'cancel_delivery_request' req.pk %}" class="btn btn-ghost" style="padding:6px 14px; font-size:0.8rem;">Cancel</a>
+</td>
+</tr>
+    {% endfor %}
+</tbody>
+</table>
+{% else %}
+<p style="color:var(--muted);">No pending requests.</p>
+{% endif %}
+    </div>
+</section>
+{% endblock %}

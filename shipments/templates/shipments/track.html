@@ -1,0 +1,41 @@
+{% extends "homepage/base.html" %}
+{% block title %}Track a shipment | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:600px;">
+        <h2>Track your shipment</h2>
+
+        <form method="get" action="{% url 'track_shipment' %}" style="margin: 24px 0;">
+            <div class="waybill">
+                <input type="text" name="tracking_number" placeholder="Enter tracking number"
+                    value="{{ tracking_number|default:'' }}">
+                <button type="submit" class="btn btn-primary">Track</button>
+            </div>
+        </form>
+
+        {% if error %}
+            <p class="field-error">{{ error }}</p>
+        {% endif %}
+
+        {% if shipment %}
+            <div class="stub" style="margin-top: 24px;">
+                <div class="stub-row"><span>Tracking No.</span><span>{{ shipment.tracking_number }}</span></div>
+                <div class="stub-row"><span>Origin</span><span>{{ shipment.origin.city }}</span></div>
+                <div class="stub-row"><span>Destination</span><span>{{ shipment.destination.city }}</span></div>
+                <div class="stub-row"><span>Weight</span><span>{{ shipment.weight_kg }} kg</span></div>
+                <span class="stub-status"><span class="pulse"></span>{{ shipment.get_status_display }}</span>
+            </div>
+
+            <h3 style="margin-top:32px;">History</h3>
+            <ul style="list-style:none; padding:0;">
+                {% for entry in shipment.status_history.all %}
+                    <li style="padding:10px 0; border-bottom:1px solid var(--steel); color:var(--muted); font-family:var(--font-mono); font-size:0.85rem;">
+                        {{ entry.changed_at|date:"M d, Y H:i" }} — {{ entry.get_status_display }}
+                        {% if entry.note %} ({{ entry.note }}){% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

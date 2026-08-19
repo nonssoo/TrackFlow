@@ -1,0 +1,17 @@
+{% extends "homepage/base.html" %}
+{% block title %}Log in | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:420px;">
+        <h2>Log in</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+        <p style="margin-top:16px; color:var(--muted);">
+            No account yet? <a href="{% url 'signup' %}" style="color:var(--orange);">Sign up</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "homepage/base.html" %}
+{% block title %}Cancel Request | TrackFlow{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="wrap" style="max-width:500px;">
+        <h2>Cancel this delivery request?</h2>
+        <p style="color:var(--muted);">
+            {{ delivery_request.pickup_address.city }} → {{ delivery_request.destination_address.city }},
+            {{ delivery_request.package_description }}
+        </p>
+        <form method="post" style="margin-top:20px;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Yes, cancel it</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
